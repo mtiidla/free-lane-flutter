@@ -5,7 +5,9 @@ import 'package:freelane/domain/model/swimming_pool.dart';
 
 class SwimmingPoolRepository {
 
-  final RestApi restApi = RestApi();
+  final RestApi restApi;
+
+  SwimmingPoolRepository(this.restApi);
 
   Future<List<SwimmingPool>> getSwimmingPools() async {
 
@@ -19,4 +21,5 @@ class SwimmingPoolRepository {
       throw Exception('Failed to load swimming pools');
     }
   }
+
 }
