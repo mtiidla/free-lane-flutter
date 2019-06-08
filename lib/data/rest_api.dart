@@ -7,6 +7,6 @@ class RestApi {
   static const String ANDROID_EMULATOR_TEST_ENDPOINT = "http://10.0.2.2:8080/api";
 
   Future<http.Response> getSwimmingPools() async {
-    return http.get('$ANDROID_EMULATOR_TEST_ENDPOINT/pools');
+    return http.get('$ENDPOINT/pools');
   }
 }
