@@ -58,12 +58,17 @@ class SwimmingPoolsState extends State<SwimmingPoolsWidget> {
                                         height: 100,
                                       )),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(pool.name, style: theme.textTheme.title),
-                                Text(pool.peopleCount.people.toString())
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(pool.name, style: theme.textTheme.title),
+                                  Text("People: ${pool.peopleCount.people}")
+                                ],
+                              ),
                             ),
                             ExpandingOpeningHours(pool.openingHours),
                           ],
