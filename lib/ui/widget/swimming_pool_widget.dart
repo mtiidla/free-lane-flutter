@@ -11,20 +11,28 @@ class SwimmingPoolWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var imageHeight = 140.0;
     return InkWell(
       onTap: () => _launchUrl(pool.url),
       child: Stack(children: <Widget>[
         CachedNetworkImage(
             imageUrl: pool.coverImageUrl,
-            height: 140,
+            height: imageHeight,
             fit: BoxFit.cover,
             placeholder: (context, url) => Container(
                   color: Colors.black12,
-                  height: 140,
+                  height: imageHeight,
                 )),
         Container(
-          height: 140,
-          color: foregroundColor.withOpacity(0.7),
+          height: imageHeight,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                foregroundColor.withOpacity(0.8),
+                foregroundColor.withOpacity(0.5)
+              ])),
         ),
         Positioned(
           left: 0,
