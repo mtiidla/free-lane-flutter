@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:freelane/ui/swimming_pool_list.dart';
 
+import 'di/ServiceLocator.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  final ServiceLocator serviceLocator = ServiceLocator.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: 'FreeLane',
@@ -11,6 +16,6 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           fontFamily: 'Josefin'
         ),
-        home: SwimmingPoolsWidget());
+        home: SwimmingPoolsWidget(serviceLocator.swimmingPoolRepository));
   }
 }

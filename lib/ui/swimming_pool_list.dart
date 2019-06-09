@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:freelane/data/rest_api.dart';
 import 'package:freelane/data/swimming_pool_repo.dart';
 import 'package:freelane/domain/model/swimming_pool.dart';
 import 'package:freelane/ui/widget/opening_hours_widget.dart';
 import 'package:freelane/ui/widget/swimming_pool_widget.dart';
 
 class SwimmingPoolsWidget extends StatefulWidget {
+
+  final SwimmingPoolRepository repository;
+
+  SwimmingPoolsWidget(this.repository);
+
   @override
   State<StatefulWidget> createState() {
-    return SwimmingPoolsState();
+    return SwimmingPoolsState(repository);
   }
 }
 
 class SwimmingPoolsState extends State<SwimmingPoolsWidget> {
-  final SwimmingPoolRepository repository = SwimmingPoolRepository(RestApi());
+  final SwimmingPoolRepository repository;
+
+  SwimmingPoolsState(this.repository);
 
   @override
   Widget build(BuildContext context) {
