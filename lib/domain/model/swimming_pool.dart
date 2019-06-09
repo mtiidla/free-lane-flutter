@@ -26,6 +26,27 @@ class SwimmingPool {
             .map((item) => OpeningHours.fromJson(item))
             .toList());
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is SwimmingPool &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              name == other.name &&
+              url == other.url &&
+              coverImageUrl == other.coverImageUrl &&
+              peopleCount == other.peopleCount &&
+              openingHours == other.openingHours;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      url.hashCode ^
+      coverImageUrl.hashCode ^
+      peopleCount.hashCode ^
+      openingHours.hashCode;
 }
 
 class PeopleCount {
@@ -37,6 +58,19 @@ class PeopleCount {
   factory PeopleCount.fromJson(Map<String, dynamic> json) {
     return PeopleCount(timestamp: json["timestamp"], people: json["people"]);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is PeopleCount &&
+              runtimeType == other.runtimeType &&
+              timestamp == other.timestamp &&
+              people == other.people;
+
+  @override
+  int get hashCode =>
+      timestamp.hashCode ^
+      people.hashCode;
 }
 
 class OpeningHours {
@@ -55,4 +89,21 @@ class OpeningHours {
     return OpeningHours(
         dayOfWeek: json["day"], open: json["open"], closed: json["closed"]);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is OpeningHours &&
+              runtimeType == other.runtimeType &&
+              dayOfWeek == other.dayOfWeek &&
+              open == other.open &&
+              closed == other.closed &&
+              label == other.label;
+
+  @override
+  int get hashCode =>
+      dayOfWeek.hashCode ^
+      open.hashCode ^
+      closed.hashCode ^
+      label.hashCode;
 }

@@ -8,7 +8,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(title: 'FreeLane',
         theme: new ThemeData(
-          primaryColor: Colors.white
+          primaryColor: Colors.white,
+          fontFamily: 'Josefin'
         ),
         home: SwimmingPoolsWidget());
   }

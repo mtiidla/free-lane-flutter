@@ -3,12 +3,11 @@ import 'package:freelane/domain/model/swimming_pool.dart';
 import 'package:intl/intl.dart';
 
 class ExpandingOpeningHours extends StatelessWidget {
-  final List<OpeningHours> openingHours;
-  final List<DateTime> daysOfWeek;
-  final DateFormat weekdayFormat = DateFormat.EEEE();
+  final List<Widget> dayWidgets;
 
-  ExpandingOpeningHours(this.openingHours)
-      : this.daysOfWeek = _createDaysOfWeek();
+  ExpandingOpeningHours(openingHours)
+      : this.dayWidgets = _createDayWidgets(
+            openingHours, _createDaysOfWeek(), DateFormat.EEEE());
 
   static List<DateTime> _createDaysOfWeek() {
     List<DateTime> daysOfWeek = new List();
@@ -19,8 +18,8 @@ class ExpandingOpeningHours extends StatelessWidget {
     return daysOfWeek;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  static List<Widget> _createDayWidgets(List<OpeningHours> openingHours,
+      List<DateTime> daysOfWeek, DateFormat weekdayFormat) {
     List widgets = new List<Widget>();
     DateTime today = DateTime.now();
     for (var dayOfWeek in daysOfWeek) {
@@ -46,9 +45,14 @@ class ExpandingOpeningHours extends StatelessWidget {
         ),
       );
     }
+    return widgets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ExpansionTile(
-      title: widgets[0],
-      children: widgets.sublist(1, widgets.length)
+      title: dayWidgets[0],
+      children: dayWidgets.sublist(1, dayWidgets.length)
           .map((c) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: c,
