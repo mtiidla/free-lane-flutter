@@ -12,7 +12,8 @@ class ExpandingOpeningHours extends StatelessWidget {
 
   static List<DateTime> _createDaysOfWeek() {
     List<DateTime> daysOfWeek = new List();
-    DateTime today = DateTime.now();
+    DateTime now = new DateTime.now();
+    DateTime today = new DateTime(now.year, now.month, now.day);
     for (int i = 0; i < 7; i++) {
       daysOfWeek.add(today.add(Duration(days: i)));
     }
@@ -27,8 +28,9 @@ class ExpandingOpeningHours extends StatelessWidget {
     DateTime today = DateTime.now();
     for (var dayOfWeek in _daysOfWeek) {
       String day = weekdayFormat.format(dayOfWeek);
+      // TODO add support for list of opening hours per day
       var daysOpeningHours = openingHours.firstWhere(
-          (hour) => hour.dayOfWeek == dayOfWeek.weekday,
+          (hour) => hour.date == dayOfWeek,
           orElse: () => null);
       String hours = daysOpeningHours == null
           ? Strings.of(context).closed.toLowerCase()

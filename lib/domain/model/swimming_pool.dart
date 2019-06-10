@@ -74,12 +74,12 @@ class PeopleCount {
 }
 
 class OpeningHours {
-  final int dayOfWeek;
+  final DateTime date;
   final String open;
   final String closed;
   final String label;
 
-  OpeningHours({this.dayOfWeek, this.open, this.closed, this.label});
+  OpeningHours({this.date, this.open, this.closed, this.label});
 
   String toRangeString() {
     return "$open - $closed";
@@ -87,7 +87,7 @@ class OpeningHours {
 
   factory OpeningHours.fromJson(Map<String, dynamic> json) {
     return OpeningHours(
-        dayOfWeek: json["day"], open: json["open"], closed: json["closed"]);
+        date: DateTime.parse(json["date"]), open: json["open"], closed: json["closed"]);
   }
 
   @override
@@ -95,14 +95,14 @@ class OpeningHours {
       identical(this, other) ||
           other is OpeningHours &&
               runtimeType == other.runtimeType &&
-              dayOfWeek == other.dayOfWeek &&
+              date == other.date &&
               open == other.open &&
               closed == other.closed &&
               label == other.label;
 
   @override
   int get hashCode =>
-      dayOfWeek.hashCode ^
+      date.hashCode ^
       open.hashCode ^
       closed.hashCode ^
       label.hashCode;
