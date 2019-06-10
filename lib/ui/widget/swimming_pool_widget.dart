@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelane/domain/model/swimming_pool.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:freelane/ui/localization/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SwimmingPoolWidget extends StatelessWidget {
@@ -50,7 +51,8 @@ class SwimmingPoolWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 20)),
                 ),
-                Text("People: ${pool.peopleCount.people}",
+                Text(
+                    "${Strings.of(context).people}: ${pool.peopleCount.people}",
                     style: TextStyle(color: Colors.white, fontSize: 14))
               ],
             ),

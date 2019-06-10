@@ -4,6 +4,8 @@ import 'package:freelane/domain/model/swimming_pool.dart';
 import 'package:freelane/ui/widget/opening_hours_widget.dart';
 import 'package:freelane/ui/widget/swimming_pool_widget.dart';
 
+import 'localization/strings.dart';
+
 class SwimmingPoolsWidget extends StatefulWidget {
 
   final SwimmingPoolRepository repository;
@@ -27,7 +29,7 @@ class SwimmingPoolsState extends State<SwimmingPoolsWidget> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Free Lane pools",
+          title: Text(Strings.of(context).homeScreenTitle,
               style: TextStyle(fontWeight: FontWeight.bold)),
           elevation: 0,
         ),
