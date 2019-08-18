@@ -30,14 +30,14 @@ class SwimmingPool {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is SwimmingPool &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              name == other.name &&
-              url == other.url &&
-              coverImageUrl == other.coverImageUrl &&
-              peopleCount == other.peopleCount &&
-              openingHours == other.openingHours;
+      other is SwimmingPool &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          url == other.url &&
+          coverImageUrl == other.coverImageUrl &&
+          peopleCount == other.peopleCount &&
+          openingHours == other.openingHours;
 
   @override
   int get hashCode =>
@@ -62,15 +62,13 @@ class PeopleCount {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is PeopleCount &&
-              runtimeType == other.runtimeType &&
-              timestamp == other.timestamp &&
-              people == other.people;
+      other is PeopleCount &&
+          runtimeType == other.runtimeType &&
+          timestamp == other.timestamp &&
+          people == other.people;
 
   @override
-  int get hashCode =>
-      timestamp.hashCode ^
-      people.hashCode;
+  int get hashCode => timestamp.hashCode ^ people.hashCode;
 }
 
 class OpeningHours {
@@ -87,23 +85,28 @@ class OpeningHours {
 
   factory OpeningHours.fromJson(Map<String, dynamic> json) {
     return OpeningHours(
-        date: DateTime.parse(json["date"]), open: json["open"], closed: json["closed"]);
+        date: DateTime.parse(json["date"]),
+        open: json["open"],
+        closed: json["closed"],
+        label: json["extra"]);
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is OpeningHours &&
-              runtimeType == other.runtimeType &&
-              date == other.date &&
-              open == other.open &&
-              closed == other.closed &&
-              label == other.label;
+      other is OpeningHours &&
+          runtimeType == other.runtimeType &&
+          date == other.date &&
+          open == other.open &&
+          closed == other.closed &&
+          label == other.label;
 
   @override
   int get hashCode =>
-      date.hashCode ^
-      open.hashCode ^
-      closed.hashCode ^
-      label.hashCode;
+      date.hashCode ^ open.hashCode ^ closed.hashCode ^ label.hashCode;
+
+  @override
+  String toString() {
+    return 'OpeningHours{date: $date, open: $open, closed: $closed, label: $label}';
+  }
 }

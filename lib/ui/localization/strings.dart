@@ -19,13 +19,13 @@ class Strings {
       "app_name": "Free Lane",
       "home_screen_title": "Free Lane pools",
       "closed": "Closed",
-      "people": "People"
+      "people": "Visitors"
     },
     "da": {
       "app_name": "Fri Bane",
       "home_screen_title": "Fri Bane svømmehalle",
       "closed": "Lukket",
-      "people": "Mennesker"
+      "people": "Inde lige nu"
     },
   };
 

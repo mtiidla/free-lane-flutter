@@ -28,34 +28,63 @@ class ExpandingOpeningHours extends StatelessWidget {
     DateTime today = DateTime.now();
     for (var dayOfWeek in _daysOfWeek) {
       String day = weekdayFormat.format(dayOfWeek);
-      // TODO add support for list of opening hours per day
-      var daysOpeningHours = openingHours.firstWhere(
-          (hour) => hour.date == dayOfWeek,
-          orElse: () => null);
-      String hours = daysOpeningHours == null
-          ? Strings.of(context).closed.toLowerCase()
-          : daysOpeningHours.toRangeString();
-      dayWidgets.add(
-        new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            today.weekday == dayOfWeek.weekday
-                ? Text(day, style: TextStyle(fontWeight: FontWeight.bold))
-                : Text(day),
-            Text(hours)
-          ],
-        ),
-      );
+      var daysOpeningHoursList =
+          openingHours.where((hour) => hour.date == dayOfWeek);
+      var isToday = today.weekday == dayOfWeek.weekday;
+      if (daysOpeningHoursList.isEmpty) {
+        var hours = Strings.of(context).closed.toLowerCase();
+        dayWidgets.add(_buildDayHoursRow(isToday, day, hours));
+      } else {
+        List<Widget> daySubWidgets = new List<Widget>();
+        for (var daysOpeningHours in daysOpeningHoursList) {
+          String hours = daysOpeningHours.toRangeString();
+          if (daysOpeningHours.label == null) {
+            dayWidgets.add(_buildDayHoursRow(isToday, day, hours));
+          } else {
+            String label = daysOpeningHours.label;
+            daySubWidgets.add(_buildDayHoursSubLabelRow(label, hours));
+          }
+        }
+        if(daySubWidgets.isNotEmpty) {
+          _wrapLastWidgetInPadding(daySubWidgets, EdgeInsets.only(bottom: 8));
+          dayWidgets.addAll(daySubWidgets);
+        }
+      }
     }
+
+    _wrapLastWidgetInPadding(dayWidgets, EdgeInsets.only(bottom: 8));
     return ExpansionTile(
       title: dayWidgets[0],
       children: dayWidgets
           .sublist(1, dayWidgets.length)
           .map((c) => Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                child: c,
-              ))
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: c))
           .toList(),
     );
+  }
+
+  Widget _buildDayHoursRow(bool isToday, String day, String hours) {
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        isToday
+            ? Text(day, style: TextStyle(fontWeight: FontWeight.bold))
+            : Text(day),
+        Text(hours)
+      ],
+    );
+  }
+
+  Widget _buildDayHoursSubLabelRow(String label, String hours) {
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[Text("• $label"), Text("$hours")],
+    );
+  }
+
+  void _wrapLastWidgetInPadding(List<Widget> widgets, EdgeInsets insets) {
+    widgets[widgets.length - 1] =
+        new Padding(padding: insets, child: widgets[widgets.length - 1]);
   }
 }
