@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:freelane/domain/model/swimming_pool.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,10 +22,8 @@ class SwimmingPoolWidget extends StatelessWidget {
             imageUrl: pool.coverImageUrl,
             height: imageHeight,
             fit: BoxFit.cover,
-            placeholder: (context, url) => Container(
-                  color: Colors.black12,
-                  height: imageHeight,
-                )),
+            placeholder: (context, url) =>
+                Container(color: Colors.black12, height: imageHeight)),
         Container(
           height: imageHeight,
           decoration: BoxDecoration(
@@ -44,22 +44,39 @@ class SwimmingPoolWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
-                  child: Text(pool.name,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20)),
-                ),
-                Text(
-                    "${Strings.of(context).people}: ${pool.peopleCount.people}",
-                    style: TextStyle(color: Colors.white, fontSize: 14))
+                    padding: const EdgeInsets.only(bottom: 6.0),
+                    child: Text(pool.name,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20))),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                        "${Strings.of(context).people}: ${pool.peopleCount.people}",
+                        style: TextStyle(color: Colors.white, fontSize: 14)),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: Row(
+                            children: _peopleIcons(pool.peopleCount.people)))
+                  ],
+                )
               ],
             ),
           ),
         ),
       ]),
     );
+  }
+
+  List<Widget> _peopleIcons(int peopleCount) {
+    if (peopleCount < 5) {
+      return new List<Widget>();
+    } else {
+      return List.generate(min((peopleCount / 15).ceil(), 15),
+          (i) => new Icon(Icons.person, size: 14, color: Colors.white));
+    }
   }
 
   _launchUrl(String url) async {
